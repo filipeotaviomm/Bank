@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject //adicionei esse implements que faz parte da autenticação de usuário
 {
     use HasApiTokens, HasFactory, Notifiable, HasUuids; //se for uuid tem que colocar esse "HasUuids"
 
@@ -24,7 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf',
-        'type'
+        'type',
+        'balance'
     ];
 
     /**
@@ -44,4 +46,25 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    //esse código abaixo foi adicionado e é parte para fazer a autenticação
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
