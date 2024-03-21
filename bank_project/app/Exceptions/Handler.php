@@ -48,6 +48,9 @@ class Handler extends ExceptionHandler
         }
 
         Log::error('Internal', [$error]);
+        Log::debug('Debug');
+        Log::info('Info');
+        Log::error('Error');
 
         if ($error instanceof AuthorizationException) {
             return response()->json(
