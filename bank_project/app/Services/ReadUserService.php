@@ -7,6 +7,13 @@ use App\Models\User;
 
 class ReadUserService
 {
+  public function getAllUsers()
+  {
+    $users = User::all();
+
+    return $users;
+  }
+
   public function getUserById(string $userId)
   {
     $foundUser = User::find($userId);
@@ -16,12 +23,5 @@ class ReadUserService
     }
 
     return $foundUser;
-  }
-
-  public function getAllUsers()
-  {
-    $users = User::all();
-
-    return $users;
   }
 }

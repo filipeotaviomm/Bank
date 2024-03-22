@@ -15,11 +15,11 @@ class UserController extends Controller
     return $createUserService->execute($request->all());
   }
 
-  public function deposit(CreateDepositRequest $request)
+  public function deposit(CreateDepositRequest $request, $id)
   {
     $createDepositService = new CreateDepositService();
 
-    return $createDepositService->execute($request->id, $request->value);
+    return $createDepositService->execute($id, $request->value);
     //o primeiro parâmetro também poderia ser auth()->user()->id que seria o id que vem do token
     //o $request também tem acesso à url, por isso $request->id funciona tmb
   }
